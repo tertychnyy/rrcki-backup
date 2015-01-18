@@ -1,7 +1,7 @@
 import logging
 import os
 
-from lib.rrckibackup import BKPConfig
+from BKPConfig import BKPConfig
 
 
 class BKPLogger:

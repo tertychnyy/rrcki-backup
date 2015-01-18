@@ -1,16 +1,20 @@
-from lib.rrckibackup import BKPLogger
+import json
+
+from BKPLogger import BKPLogger
 
 
 class BKPSite:
-    def __init__(self, site):
+    def __init__(self, path):
         #logger
-        _logger = BKPLogger.getLogger('BKPSite')
+        _logger = BKPLogger().getLogger('BKPSite')
 
         self.name = 'default'
         self.server = '127.0.0.1'
         self.user = 'root'
         self.port = 22
         self.key = ''
+
+        site = self.getJSON(path)
 
         if site['name'] != None:
             self.name = site['name']
@@ -33,10 +37,13 @@ class BKPSite:
         else:
             self._logger.error("Empty site.key")
 
-    def getSSHHead(self):
-        sshhead = 'ssh -i ' + self.key + " -p " + self.port
-        return sshhead
+    def getJSON(self, filepath):
+        json_data = open(filepath)
+        data = json.load(json_data)
+        json_data.close()
+        return data
 
     def getSSH(self):
-        ssh = self.getSSHHead() + " " + self.user + "@" + self.server
+        ssh = 'ssh -i ' + self.key + " -p " + str(self.port) + " " + self.user + "@" + self.server
         return ssh
+
