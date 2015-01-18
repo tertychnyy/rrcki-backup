@@ -3,5 +3,5 @@
     "server": "144.206.233.179",
     "user": "root",
     "port": 8773,
-    "key": "~/.ssh/mpanda1_rsa"
+    "key": "~/.ssh/id_rsa"
 }
