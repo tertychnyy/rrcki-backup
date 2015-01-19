@@ -6,34 +6,16 @@ class BKPData:
         #logger
         _logger = BKPLogger().getLogger('BKPData')
 
-        self.name = 'default'
         self.server = 'localhost'
-        self.path = '/'
-        self.type = 'file'
-        self.branch = 'main'
+        self.branchs = []
+        self.site = None
 
         site = BKPSite.getJSON(path)
 
-        if site['name'] != None:
-            self.name = site['name']
-        else:
-            self._logger.error("Empty data.name")
-        if site['server'] != None:
-            self.server = site['server']
-        else:
-            self._logger.error("Empty data.server")
-        if site['path'] != None:
-            self.path = site['path']
-        else:
-            self._logger.error("Empty data.path")
-        if site['type'] != None:
-            self.type = site['type']
-        else:
-            self._logger.error("Empty data.type")
-        if site['branch'] != None:
-            self.branch = site['branch']
-        else:
-            self._logger.error("Empty data.branch")
+        self.server = site.keys()[0]
+        self.branches = site[self.server].keys()
+        self.site = site
+
 
     def __str__(self):
-        return '[' + self.name + '] ' + self.server + ':' + self.path + ' TYPE:' + self.type
+        return '[' + self.server + '] '

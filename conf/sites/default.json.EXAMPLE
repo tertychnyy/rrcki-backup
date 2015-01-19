@@ -1,7 +1,7 @@
 {
     "name": "default",
-    "server": "1.1.1.1",
+    "server": "127.0.0.1",
     "user": "root",
-    "port": 8787,
-    "key": "/tmp/id_rsa"
+    "port": 22,
+    "key": "/Users/it/.ssh/mpanda1_rsa"
 }
