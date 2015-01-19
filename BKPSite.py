@@ -44,6 +44,10 @@ class BKPSite:
         return data
 
     def getSSH(self):
-        ssh = 'ssh -i ' + self.key + " -p " + str(self.port) + " " + self.user + "@" + self.server
+        ssh = self.getSSHHead() + " " + self.user + "@" + self.server
+        return ssh
+
+    def getSSHHead(self):
+        ssh = 'ssh -i ' + self.key + " -p " + str(self.port)
         return ssh
 

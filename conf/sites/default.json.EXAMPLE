@@ -1,0 +1,7 @@
+{
+    "name": "default",
+    "server": "1.1.1.1",
+    "user": "root",
+    "port": 8787,
+    "key": "/tmp/id_rsa"
+}

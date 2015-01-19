@@ -6,6 +6,12 @@ class BKPConfig:
         self.config = ConfigObj('conf/conf.ini')
 
     def getLogDir(self):
-        return os.path.join(self.config['homedir'], self.config['logdir'])
+        return self.config['logdir']
+
+    def getHome(self):
+        return self.config['homedir']
+
+    def getServerHome(self):
+        return self.config['serverhome']
 
 

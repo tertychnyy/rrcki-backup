@@ -1,7 +1,0 @@
-{
-    "name": "apf",
-    "server": "144.206.233.179",
-    "user": "root",
-    "port": 8773,
-    "key": "~/.ssh/id_rsa"
-}
