@@ -1,0 +1,7 @@
+{
+    "name": "vcloud29",
+    "server": "144.206.233.187",
+    "user": "root",
+    "port": 8773,
+    "key": "/Users/it/.ssh/mpanda1_rsa"
+}

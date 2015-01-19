@@ -10,6 +10,7 @@ class BKPData:
         self.server = 'localhost'
         self.path = '/'
         self.type = 'file'
+        self.branch = 'main'
 
         site = BKPSite.getJSON(path)
 
@@ -29,6 +30,10 @@ class BKPData:
             self.type = site['type']
         else:
             self._logger.error("Empty data.type")
+        if site['branch'] != None:
+            self.branch = site['branch']
+        else:
+            self._logger.error("Empty data.branch")
 
     def __str__(self):
         return '[' + self.name + '] ' + self.server + ':' + self.path + ' TYPE:' + self.type

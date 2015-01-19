@@ -1,4 +1,5 @@
 import os
+import time
 import commands
 from BKPLogger import BKPLogger
 from BKPSite import BKPSite
@@ -23,7 +24,7 @@ def main():
 
         _logger.debug("Trying to rsync: %s" % (_cmd))
         lostat, loout = commands.getstatusoutput(_cmd)
-        _logger.debug(loout)
+        #_logger.debug(loout)
 
     for site in sites:
         dfs = []
@@ -34,10 +35,14 @@ def main():
                     dfs.append(df)
 
     for df in dfs:
+        homepath = os.path.join(datahome, df.server, df.branch)
+
         if df.type == 'file':
             dirflag = ''
+            toPath = homepath + df.path
         elif df.type == 'dir':
-            dirflag = '/*'
+            dirflag = '/'
+            toPath = homepath + os.path.join(df.path, df.name)
         else:
             _logger.error('Invalid data type: ' + str(df))
 
@@ -46,16 +51,25 @@ def main():
                 dfsite = site
 
         if dfsite != None:
-            fromPath = df.path
-            toPath = os.path.join(datahome, df.server)
-            _cmd = "rsync -avzhe '%s' %s@%s:%s%s %s/" % (dfsite.getSSHHead(), dfsite.user, dfsite.server, fromPath, dirflag, toPath)
+            fromPath = os.path.join(df.path, df.name)
+
+            _cmd = "mkdir -p %s | " % (toPath)
+            _cmd =_cmd + "rsync -avzhe '%s' %s@%s:%s%s %s/" % (dfsite.getSSHHead(), dfsite.user, dfsite.server, fromPath, dirflag, toPath)
 
             _logger.debug("Trying to rsync data from %s: %s" % (df.server, _cmd))
             lostat, loout = commands.getstatusoutput(_cmd)
-            _logger.debug(loout)
+            #_logger.debug(loout)
         else:
             _logger.error('Datasite not found: ' + str(df))
-    exit()
+
+    dirs = os.listdir(datahome)
+    for dir in dirs:
+        ds = os.listdir(os.path.join(datahome, dir))
+        for d in ds:
+            _cmd = "cd %s ; if [ ! -d .git ] ; then git init ; fi ; git add -A ; git commit -m 'Autocommit: %s'" % (os.path.join(datahome, dir, d), 'TIMESTAMP')
+            _logger.debug("Trying to commit: %s" % (_cmd))
+            lostat, loout = commands.getstatusoutput(_cmd)
+            #_logger.debug(loout)
 
 
 homepath = BKPConfig().getHome()
