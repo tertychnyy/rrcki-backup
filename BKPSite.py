@@ -2,6 +2,11 @@ import json
 
 from BKPLogger import BKPLogger
 
+def getJSON(filepath):
+        json_data = open(filepath)
+        data = json.load(json_data)
+        json_data.close()
+        return data
 
 class BKPSite:
     def __init__(self, path):
@@ -14,7 +19,7 @@ class BKPSite:
         self.port = 22
         self.key = ''
 
-        site = self.getJSON(path)
+        site = getJSON(path)
 
         if site['name'] != None:
             self.name = site['name']
@@ -36,12 +41,6 @@ class BKPSite:
             self.key = site['key']
         else:
             self._logger.error("Empty site.key")
-
-    def getJSON(self, filepath):
-        json_data = open(filepath)
-        data = json.load(json_data)
-        json_data.close()
-        return data
 
     def getSSH(self):
         ssh = self.getSSHHead() + " " + self.user + "@" + self.server

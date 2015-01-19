@@ -14,4 +14,6 @@ class BKPConfig:
     def getServerHome(self):
         return self.config['serverhome']
 
+    def getDataHome(self):
+        return self.config['datahome']
 
