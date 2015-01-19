@@ -1,0 +1,6 @@
+.gitignore
+*.json
+*.log
+data/
+.idea/
+*.pyc
