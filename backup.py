@@ -1,6 +1,7 @@
 import os
-import time
 import commands
+import sys
+sys.path.append('lib/rrckibackup')
 from BKPLogger import BKPLogger
 from BKPSite import BKPSite
 from BKPConfig import BKPConfig
@@ -66,10 +67,11 @@ def main():
     for dir in dirs:
         ds = os.listdir(os.path.join(datahome, dir))
         for d in ds:
-            _cmd = "cd %s ; if [ ! -d .git ] ; then git init ; fi ; git add -A ; git commit -m 'Autocommit: %s'" % (os.path.join(datahome, dir, d), 'TIMESTAMP')
+            _cmd = "cd %s ; if [ ! -d .git ] ; then git init ; fi ; git add -A ; git commit -m 'Autocommit'" % (os.path.join(datahome, dir, d))
             _logger.debug("Trying to commit: %s" % (_cmd))
             lostat, loout = commands.getstatusoutput(_cmd)
             #_logger.debug(loout)
+
 
 
 homepath = BKPConfig().getHome()
