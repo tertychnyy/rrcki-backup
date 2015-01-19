@@ -1,4 +1,5 @@
 import json
+import sys
 
 from BKPLogger import BKPLogger
 
@@ -21,26 +22,31 @@ class BKPSite:
 
         site = getJSON(path)
 
-        if site['name'] != None:
+        if site['name'] is not None:
             self.name = site['name']
         else:
             self._logger.error("Empty site.name")
-        if site['server'] != None:
+            sys.exit(1)
+        if site['server'] is not None:
             self.server = site['server']
         else:
             self._logger.error("Empty site.server")
-        if site['user'] != None:
+            sys.exit(1)
+        if site['user'] is not None:
             self.user = site['user']
         else:
             self._logger.error("Empty site.server")
-        if site['port'] != None:
+            sys.exit(1)
+        if site['port'] is not None:
             self.port = site['port']
         else:
             self._logger.error("Empty site.port")
-        if site['key'] != None:
+            sys.exit(1)
+        if site['key'] is not None:
             self.key = site['key']
         else:
             self._logger.error("Empty site.key")
+            sys.exit(1)
 
     def getSSH(self):
         ssh = self.getSSHHead() + " " + self.user + "@" + self.server

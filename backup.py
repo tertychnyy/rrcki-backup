@@ -1,6 +1,7 @@
 import os
 import commands
 import sys
+
 sys.path.append('lib/rrckibackup')
 from BKPLogger import BKPLogger
 from BKPSite import BKPSite
@@ -9,7 +10,17 @@ from BKPData import BKPData
 from BKPUnit import BKPUnit
 
 
-def main(freq):
+def main():
+    if len(sys.argv) != 2:
+        _logger.error('Invalid number of arguments: ' + len(sys.argv))
+        sys.exit(1)
+
+    freq = sys.argv[1]
+    if freq not in ["daily", "weekly", "monthly"]:
+        _logger.error('Invalid number of arguments: ' + len(sys.argv))
+        sys.exit(1)
+
+
     sites = []
     for root, dirs, files in os.walk(sitesdir):
         for file in files:
@@ -25,7 +36,7 @@ def main(freq):
 
         _logger.debug("Trying to rsync: %s" % (_cmd))
         lostat, loout = commands.getstatusoutput(_cmd)
-        #_logger.debug(loout)
+        # _logger.debug(loout)
 
     dfs = []
     for site in sites:
@@ -55,6 +66,7 @@ def main(freq):
             toPath = homepath + df.path
         else:
             _logger.error('Invalid data type: ' + str(df))
+            sys.exit(0)
 
         for site in sites:
             if site.name == df.server:
@@ -64,24 +76,24 @@ def main(freq):
             fromPath = df.path
 
             _cmd = "mkdir -p %s | " % (toPath)
-            _cmd =_cmd + "rsync -avzhe '%s' %s@%s:%s%s %s%s" % (dfsite.getSSHHead(), dfsite.user, dfsite.server, fromPath, dirflag, toPath, dirflag)
+            _cmd = _cmd + "rsync -avzhe '%s' %s@%s:%s%s %s%s" % (dfsite.getSSHHead(), dfsite.user, dfsite.server, fromPath, dirflag, toPath, dirflag)
 
             _logger.debug("Trying to rsync data from %s: %s" % (df.server, _cmd))
             lostat, loout = commands.getstatusoutput(_cmd)
-            #_logger.debug(loout)
+            # _logger.debug(loout)
         else:
             _logger.error('Datasite not found: ' + str(df))
+            sys.exit(1)
 
     dirs = os.listdir(datahome)
     for dir in dirs:
         ds = os.listdir(os.path.join(datahome, dir))
         for d in ds:
-            _cmd = "cd %s ; if [ ! -d .git ] ; then git init ; fi ; git add -A ; git commit -m 'Autocommit'" % (os.path.join(datahome, dir, d))
+            _cmd = "cd %s ; if [ ! -d .git ] ; then git init ; fi ; git add -A ; git commit -m 'Autocommit'" % (
+                os.path.join(datahome, dir, d))
             _logger.debug("Trying to commit: %s" % (_cmd))
             lostat, loout = commands.getstatusoutput(_cmd)
-            #_logger.debug(loout)
-
-
+            # _logger.debug(loout)
 
 homepath = BKPConfig().getHome()
 confdir = os.path.join(homepath, "conf")
@@ -92,4 +104,4 @@ datahome = BKPConfig().getDataHome()
 
 _logger = BKPLogger().getLogger('backup')
 
-main(sys.argv[1])
+main()
