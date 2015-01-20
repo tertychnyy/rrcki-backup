@@ -4,4 +4,4 @@
 data/
 .idea/
 *.pyc
-!data/*.EXAMPLE
+!conf/data/*.EXAMPLE
