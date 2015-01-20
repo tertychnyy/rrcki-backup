@@ -1,7 +1,0 @@
-.gitignore
-*.json
-*.log
-data/
-.idea/
-*.pyc
-!conf/data/*.EXAMPLE
