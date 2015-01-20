@@ -3,7 +3,7 @@ from configobj import ConfigObj
 
 class BKPConfig:
     def __init__(self):
-        self.config = ConfigObj('conf/conf.ini')
+        self.config = ConfigObj('conf/backup.conf')
 
     def getLogDir(self):
         return self.config['logdir']
