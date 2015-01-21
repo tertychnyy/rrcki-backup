@@ -1,0 +1,18 @@
+{
+        "defaultserver":{
+                "branch1":{
+                        "daily":{
+                                "dir":["/root/dir1", "/etc/dir2"],
+                                "file":["/tmp/file1"]
+                        },
+                        "weekly":{
+                                "dir":[],
+                                "file":[]
+                        },
+                        "monthly":{
+                                "dir":[],
+                                "file":[]
+                        }
+                }
+        }
+}
