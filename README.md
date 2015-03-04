@@ -1,6 +1,6 @@
 rrcki-backup
 ============
-Backup scripts for your remote servers.
+Backup scripts for your remote servers.  
 Based on rsync and git
 
 Configuration
