@@ -14,6 +14,8 @@ Dirs/Files JSONs remote dir: serverhome (default: /srv/bkp/data) (ex: conf/data/
 
 Storage dir: datahome (default: /storage/bkp)
 
+Add lib/rrckibackup to PYTHONPATH
+
 Usage
 -----
     python backup.py daily/weekly/monthly
