@@ -2,7 +2,6 @@ import os
 import commands
 import sys
 
-sys.path.append('lib/rrckibackup')
 from BKPLogger import BKPLogger
 from BKPSite import BKPSite
 from BKPConfig import BKPConfig
