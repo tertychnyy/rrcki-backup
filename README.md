@@ -17,4 +17,4 @@ Servers:
 Usage
 -----
     python backup.py daily/weekly/monthly
-    python fetch_backup.py GIT_REPO_PATH before DATE
+    python fetch_backup.py DIR_TO_RESTORE before DATE
