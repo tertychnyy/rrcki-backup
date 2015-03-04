@@ -1,20 +1,18 @@
 rrcki-backup
 ============
-Backup locally files from your servers.
-
-Use rsync for data sync
-
-Save changes history with git
+Backup scripts for your remote servers.
+Based on rsync and git
 
 Configuration
 -------------
-Sites JSONs local dir: conf/sites (ex: conf/sites/defaultserver.json.EXAMPLE)
-
-Dirs/Files JSONs remote dir: serverhome (default: /srv/bkp/data) (ex: conf/data/defaultserver.json.EXAMPLE)
-
-Storage dir: datahome (default: /storage/bkp)
-
-Add lib/rrckibackup to PYTHONPATH
+Master:
+*   Add lib/rrckibackup to PYTHONPATH
+*   Set 'datahome' in conf/backup.conf (default: /storage/bkp)
+*   Set sites JSONs in conf/sites (ex: conf/sites/defaultserver.json.EXAMPLE)
+*   Set cron daily/weekly/monthly jobs 
+     
+Servers:
+*   Describe dirs/files to backup in /srv/bkp/data/%servername%.json (ex: conf/data/defaultserver.json.EXAMPLE)
 
 Usage
 -----
